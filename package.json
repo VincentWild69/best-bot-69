@@ -1,0 +1,26 @@
+{
+  "name": "best-bot-69",
+  "version": "1.0.0",
+  "description": "My first tg-bot",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "VincentW",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^18.14.0",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.34.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "grammy": "^1.14.1",
+    "telegraf-middleware-console-time": "^2.1.0"
+  }
+}
