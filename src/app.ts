@@ -16,6 +16,7 @@ export class MyBot {
     if (this.configService.get('NODE_ENV') !== 'production') {
       this.bot.use(generateUpdateMiddleware());
     }
+    this.bot.catch(error => console.error(error));
   }
 
   initialSessionData(): ISessionData {
@@ -30,6 +31,7 @@ export class MyBot {
       command.handle();
     }
     this.bot.start();
+    console.log('>>>Bot init!>>>');
   }
 }
 
