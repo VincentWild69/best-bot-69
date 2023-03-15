@@ -1,4 +1,4 @@
-import { Bot, session } from 'grammy';
+import { Bot as GrammyBot, session } from 'grammy';
 import { Command } from './commands/command.class';
 import { IConfigService } from './config/config.interface';
 import { ConfigService } from './config/config.service';
@@ -7,16 +7,15 @@ import { StartCmd } from './commands/startCmd';
 import { generateUpdateMiddleware } from 'telegraf-middleware-console-time';
 
 export class MyBot {
-  bot: Bot<MyContext>;
+  bot: GrammyBot<MyContext>;
   commands: Command[] = [];
 
   constructor(private readonly configService: IConfigService) {
-    this.bot = new Bot<MyContext>(this.configService.get('TOKEN'));
+    this.bot = new GrammyBot<MyContext>(this.configService.get('BOT_TOKEN'));
     this.bot.use(session({ initial: this.initialSessionData }));
     if (this.configService.get('NODE_ENV') !== 'production') {
       this.bot.use(generateUpdateMiddleware());
     }
-    this.bot.catch(error => console.error(error));
   }
 
   initialSessionData(): ISessionData {
@@ -26,12 +25,16 @@ export class MyBot {
   }
 
   init() {
-    this.commands = [new StartCmd(this.bot)];
+    this.commands = [
+      new StartCmd(this.bot),
+    ];
     for (const command of this.commands) {
       command.handle();
     }
-    this.bot.start();
-    console.log('>>>Bot init!>>>');
+    this.bot.catch(error => console.error(error));
+    this.bot.start().then(() => {
+      console.log(`@${this.bot.botInfo.username} is running...`);
+    });
   }
 }
 

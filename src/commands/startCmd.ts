@@ -1,9 +1,9 @@
 import { MyContext } from '../context/context.interface';
 import { Command } from './command.class';
-import { Bot } from 'grammy';
+import { Bot as GrammyBot } from 'grammy';
 
 export class StartCmd extends Command {
-  constructor(bot: Bot<MyContext>) {
+  constructor(bot: GrammyBot<MyContext>) {
     super(bot);
   }
 
